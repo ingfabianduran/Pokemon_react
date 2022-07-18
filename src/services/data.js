@@ -6,4 +6,16 @@ const getTypes = async() => {
   return data;
 };
 
-export { getTypes };
+const getPokemonByType = async(type) => {
+  const res = await fetch(`${DOMINIO}/type/${type}/`);
+  const data = await res.json();
+  return data;
+};
+
+const getInfoPokemon = async(url) => {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+};
+
+export { getTypes, getPokemonByType, getInfoPokemon };

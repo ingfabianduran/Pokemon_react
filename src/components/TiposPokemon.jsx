@@ -20,7 +20,7 @@ export default function TiposPokemon({ tipoSelect, setTipoSelect }) {
   return (
     <FormControl
       fullWidth>
-      <InputLabel id='label_select'>Tipos de Pokemon</InputLabel>
+      <InputLabel id='label_select'>Tipos</InputLabel>
       <Select
         labelId='label_select'
         id='select_tipos'
