@@ -1,17 +1,18 @@
 import React from 'react'
 import { TableRow, TableCell, Stack, Chip, Avatar, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { getInfoPokemon } from '../services/data';
 
 export default function FilaPokemon({ pokemon }) {
-  const [dataAdicional, setDataAdicional] = React.useState({ types: [], sprites: {} });
+  const [dataAdicional, setDataAdicional] = React.useState({id: '', types: [], sprites: {} });
 
   React.useEffect(() => {
     getDataAdicional(pokemon.url);
   }, []);
 
   const getDataAdicional = async(url) => {
-    const { types, sprites } = await getInfoPokemon(url);
-    setDataAdicional({ types, sprites });
+    const { id, types, sprites } = await getInfoPokemon(url);
+    setDataAdicional({ id, types, sprites });
   };
 
   return (
@@ -43,7 +44,9 @@ export default function FilaPokemon({ pokemon }) {
           textAlign: 'center'
         }}>
         <Button
-          variant='contained'>
+          variant='contained'
+          component={Link} 
+          to={`/pokemon/${dataAdicional.id}`}>
           Mas Detalles
         </Button>
       </TableCell>

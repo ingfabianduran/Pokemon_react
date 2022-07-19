@@ -18,4 +18,10 @@ const getInfoPokemon = async(url) => {
   return data;
 };
 
-export { getTypes, getPokemonByType, getInfoPokemon };
+const pokemonByPage = async(id) => {
+  const res = await fetch(`${DOMINIO}/pokemon/${id}/`);
+  const data = await res.json();
+  return data;
+};
+
+export { getTypes, getPokemonByType, getInfoPokemon, pokemonByPage };
