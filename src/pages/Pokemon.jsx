@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Stack, Card, CardHeader, Avatar } from '@mui/material';
+import { Container, Stack } from '@mui/material';
+import CardPokemon from '../components/CardPokemon';
 import { pokemonByPage } from '../services/data';
 import { useParams } from 'react-router-dom';
 
@@ -14,28 +15,24 @@ export default function Pokemon() {
 
   React.useEffect(() => {
     if (!dataPokemon) getDataPokemon();
-    console.log(dataPokemon);
-  }, [id, dataPokemon]);
+  }, [dataPokemon]);
 
   
   if (dataPokemon) {
     return (
       <Container
-        maxWidth='sm'>
-        <Stack>
-          <Card>
-            <CardHeader
-              avatar={
-                <Avatar 
-                alt={dataPokemon.name}
-                src={dataPokemon.sprites.front_default} />
-              }
-              title={dataPokemon.name} />
-          </Card>
+        maxWidth='md'>
+        <Stack
+          direction='row'
+          alignItems='center'
+          justifyContent='center'>
+          <CardPokemon 
+            dataPokemon={dataPokemon} />
         </Stack>
       </Container>
     )
   }
+  
   return (
     <p>Cargando...</p>
   )
