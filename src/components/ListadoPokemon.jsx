@@ -20,7 +20,8 @@ export default function ListadoPokemon({ pokemones }) {
                   <TableCell
                     sx={{
                       fontWeight: 'bold',
-                      color: 'white'
+                      color: 'white',
+                      textAlign: 'center'
                     }}
                     key={item}>
                     { item }

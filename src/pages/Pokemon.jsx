@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Stack } from '@mui/material';
+import { Container, Box, Backdrop, CircularProgress } from '@mui/material';
 import CardPokemon from '../components/CardPokemon';
 import { pokemonByPage } from '../services/data';
 import { useParams } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 export default function Pokemon() {
   let { id } = useParams();
   const [dataPokemon, setDataPokemon] = React.useState();
+  const [open, setOpen] = React.useState(true);
 
   const getDataPokemon = async() => {
     const data = await pokemonByPage(id);
@@ -14,7 +15,11 @@ export default function Pokemon() {
   };
 
   React.useEffect(() => {
-    if (!dataPokemon) getDataPokemon();
+    if (!dataPokemon) {
+      setTimeout(() => {
+        getDataPokemon();
+      }, 2000);
+    }
   }, [dataPokemon]);
 
   
@@ -22,18 +27,25 @@ export default function Pokemon() {
     return (
       <Container
         maxWidth='md'>
-        <Stack
-          direction='row'
-          alignItems='center'
-          justifyContent='center'>
+        <Box
+          minHeight='95vh'
+          display='flex'
+          flexDirection='column'
+          justifyContent='center'
+          alignItems='center'>
           <CardPokemon 
             dataPokemon={dataPokemon} />
-        </Stack>
+        </Box>
       </Container>
     )
   }
   
   return (
-    <p>Cargando...</p>
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}>
+      <CircularProgress 
+        color='inherit' />
+    </Backdrop>
   )
 }

@@ -38,7 +38,18 @@ export default function CardPokemon({ dataPokemon }) {
                   <ListItem
                     key={item.stat.name}>
                     <ListItemText
-                      secondary={`${item.stat.name}: ${item.base_stat}`}/>
+                      secondary={
+                        <Typography
+                          sx={{
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase'
+                          }}
+                          component='span'
+                          variant='body1'>
+                          {`${item.stat.name}: ${item.base_stat}`}
+                        </Typography>
+                      } />
+                      
                   </ListItem>
                 )
               })

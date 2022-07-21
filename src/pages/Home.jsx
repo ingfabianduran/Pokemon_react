@@ -28,8 +28,11 @@ export default function Home() {
       </Stack>
       <Stack
         mt={2}>
-        <ListadoPokemon 
-          pokemones={listaPokemon} />
+        {
+          listaPokemon.length > 0 &&
+            <ListadoPokemon 
+              pokemones={listaPokemon} />
+        }
       </Stack>
     </Container>
   )
