@@ -1,12 +1,14 @@
 import React from 'react';
-import { Container, Stack } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import TiposPokemon from '../components/TiposPokemon';
 import ListadoPokemon from '../components/ListadoPokemon';
+import Favoritos from '../components/Favoritos';
 import { getPokemonByType } from '../services/data';
 
 export default function Home() {
   const [tipoSelect, setTipoSelect] = React.useState('');
   const [listaPokemon, setListaPokemon] = React.useState([]);
+  const [listaFavoritos, setListaFavoritos] = React.useState([]);
 
   React.useEffect(() => {
     if (tipoSelect !== '') getListPokemon();
@@ -18,22 +20,36 @@ export default function Home() {
   };
 
   return (
-    <Container
-      maxWidth='md'>
-      <Stack
-        mt={2}>
-        <TiposPokemon
-          tipoSelect={tipoSelect}
-          setTipoSelect={setTipoSelect} />
-      </Stack>
-      <Stack
-        mt={2}>
-        {
-          listaPokemon.length > 0 &&
-            <ListadoPokemon 
-              pokemones={listaPokemon} />
-        }
-      </Stack>
+    <Container>
+      <Grid
+        container
+        spacing={2}>
+        <Grid
+          item
+          xs={12}>
+          <TiposPokemon
+            tipoSelect={tipoSelect}
+            setTipoSelect={setTipoSelect} />
+        </Grid>
+        <Grid
+          item
+          xs={8}>
+          {
+            listaPokemon.length > 0 &&
+              <ListadoPokemon 
+                pokemones={listaPokemon} />
+          }
+        </Grid>
+        <Grid
+          item
+          xs={4}>
+          {
+            listaFavoritos.length > 0 &&
+            <Favoritos
+              listaFavoritos={listaFavoritos} />
+          }
+        </Grid>
+      </Grid>
     </Container>
   )
 }

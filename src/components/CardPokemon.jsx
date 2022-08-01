@@ -13,7 +13,8 @@ import { Link } from 'react-router-dom';
 
 export default function CardPokemon({ dataPokemon }) {  
   return (
-    <Card>
+    <Card
+      raised>
       <CardHeader
         avatar={
           <Avatar 
@@ -59,7 +60,7 @@ export default function CardPokemon({ dataPokemon }) {
         <CardActions>
           <Button
             component={Link}
-            to='/'
+            to='/pokemones'
             size='large'
             variant='contained'>
             Volver
