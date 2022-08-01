@@ -8,7 +8,8 @@ import { Card,
          Button, 
          List,
          ListItem,
-         ListItemText } from '@mui/material';
+         ListItemText,
+         Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function CardPokemon({ dataPokemon }) {  
@@ -58,13 +59,23 @@ export default function CardPokemon({ dataPokemon }) {
           </List>
         </CardContent>
         <CardActions>
-          <Button
-            component={Link}
-            to='/pokemones'
-            size='large'
-            variant='contained'>
-            Volver
-          </Button>
+          <Stack
+            direction='row'
+            spacing={2}>
+            <Button
+              component={Link}
+              to='/pokemones'
+              size='large'
+              variant='contained'>
+              Volver
+            </Button>
+            <Button
+              size='large'
+              variant='contained'
+              color='success'>
+              Favorito
+            </Button>
+          </Stack>
         </CardActions>
     </Card>
   )

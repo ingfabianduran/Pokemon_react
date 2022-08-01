@@ -4,6 +4,7 @@ import TiposPokemon from '../components/TiposPokemon';
 import ListadoPokemon from '../components/ListadoPokemon';
 import Favoritos from '../components/Favoritos';
 import { getPokemonByType } from '../services/data';
+import { getFavoritosByUser } from '../services/pocketBase';
 
 export default function Home() {
   const [tipoSelect, setTipoSelect] = React.useState('');
@@ -13,6 +14,16 @@ export default function Home() {
   React.useEffect(() => {
     if (tipoSelect !== '') getListPokemon();
   }, [tipoSelect]);
+
+  React.useEffect(() => {
+    getFavoritos();
+  }, []);
+
+  const getFavoritos = async() => {
+    const { items } = await getFavoritosByUser('J3YIzwFlnTXJt3A');
+    console.log('Favoritos', items);
+    setListaFavoritos(items);
+  };
 
   const getListPokemon = async() => {
     const { pokemon } = await getPokemonByType(tipoSelect);

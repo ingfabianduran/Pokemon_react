@@ -1,7 +1,9 @@
 import React from 'react';
 import { ImageList, ImageListItem, Typography } from '@mui/material';
+import ImagePokemon from './ImagePokemon';
 
 export default function Favoritos({ listaFavoritos }) {
+
   return (
     <div>
       <Typography
@@ -23,10 +25,8 @@ export default function Favoritos({ listaFavoritos }) {
             return (
               <ImageListItem
                 key={item.id}>
-                <img
-                  src={item.url}
-                  alt={item.name}
-                  loading='lazy' />
+                <ImagePokemon
+                  data={item} />
               </ImageListItem>
             )
           })
