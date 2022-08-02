@@ -27,12 +27,15 @@ export default function CardPokemon({ dataPokemon }) {
       pokemon: dataPokemon.id
     };
     try {
-      const newRecord = await addFavoritosByUser(record);
-      setSnackBar({ show: true, type: 'success', text: `Favorito ${newRecord.id} agregado correctamente` });
-      setTimeout(() => {
-        setSnackBar({ ...snackBar, show: false });
-        navigate('/pokemones');
-      }, 3000);
+      const newRecord = await addFavoritosByUser(record, dataPokemon.id);
+      if (newRecord.hasOwnProperty('message')) {
+        setSnackBar({ show: true, type: 'success', text: newRecord.message });
+      } else {
+        setSnackBar({ show: true, type: 'success', text: `Favorito ${newRecord.id} agregado correctamente` });
+        setTimeout(() => {
+          navigate('/pokemones');
+        }, 3000);
+      }
     } catch (error) {
       setSnackBar({ show: true, type: 'error', text: 'Algo raro paso aquí' });
     }

@@ -1,16 +1,17 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Snackbar, Alert } from '@mui/material';
 import TiposPokemon from '../components/TiposPokemon';
 import ListadoPokemon from '../components/ListadoPokemon';
 import Favoritos from '../components/Favoritos';
 import { getPokemonByType } from '../services/data';
-import { getFavoritosByUser } from '../services/pocketBase';
+import { getFavoritosByUser, deleteFavoritosByUser } from '../services/pocketBase';
 import { useSelector } from 'react-redux';
 
 export default function Home() {
   const [tipoSelect, setTipoSelect] = React.useState('');
   const [listaPokemon, setListaPokemon] = React.useState([]);
   const [listaFavoritos, setListaFavoritos] = React.useState([]);
+  const [snackBar, setSnackBar] = React.useState({ show: false, type: 'success', text: '' });
   const user = useSelector(state => state.user);
 
   React.useEffect(() => {
@@ -31,8 +32,28 @@ export default function Home() {
     setListaPokemon(pokemon);
   };
 
+  const deleteFavorito = async(idRecord) => {
+    try {
+      const deletePokemon = await deleteFavoritosByUser(idRecord);
+      setSnackBar({ ...snackBar, show: true, text: 'Favorito eliminado correctamente' });
+      setTimeout(() => {
+        setSnackBar({ ...snackBar, show: false });
+      }, 3000);
+      await getFavoritos();
+    } catch (error) {
+      setSnackBar({ show: true, type: 'error', text: 'Algo raro ocurrio aquí' });
+    }
+  };
+
   return (
     <Container>
+      <Snackbar
+        open={snackBar.show}>
+        <Alert
+          severity={snackBar.type}>
+          { snackBar.text }
+        </Alert>
+      </Snackbar>
       <Grid
         container
         spacing={2}>
@@ -58,7 +79,8 @@ export default function Home() {
           {
             listaFavoritos.length > 0 &&
             <Favoritos
-              listaFavoritos={listaFavoritos} />
+              listaFavoritos={listaFavoritos}
+              deleteFavorito={deleteFavorito} />
           }
         </Grid>
       </Grid>

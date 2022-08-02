@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageList, ImageListItem, Typography } from '@mui/material';
 import ImagePokemon from './ImagePokemon';
 
-export default function Favoritos({ listaFavoritos }) {
+export default function Favoritos({ listaFavoritos, deleteFavorito }) {
 
   return (
     <div>
@@ -26,7 +26,8 @@ export default function Favoritos({ listaFavoritos }) {
               <ImageListItem
                 key={item.id}>
                 <ImagePokemon
-                  data={item} />
+                  data={item}
+                  deleteFavorito={deleteFavorito} />
               </ImageListItem>
             )
           })

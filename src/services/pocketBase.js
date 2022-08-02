@@ -9,7 +9,13 @@ const getFavoritosByUser = async(userId) => {
   return res;
 };
 
-const addFavoritosByUser = async(record) => {
+const addFavoritosByUser = async(record, idPokemon) => {
+  const { items } = await cliente.Records.getList('favoritos', 1, 1, {
+    filter: `pokemon='${idPokemon}'`
+  });
+
+  if (items.length > 0) return { message: 'El pokemon ya esta en favoritos' };
+
   const res = await cliente.Records.create('favoritos', record);
   return res;
 };

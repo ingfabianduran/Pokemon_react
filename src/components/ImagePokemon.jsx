@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button } from '@mui/material';
 import { pokemonByPage } from '../services/data';
 
-export default function ImagePokemon({ data }) {
+export default function ImagePokemon({ data, deleteFavorito }) {
   const [urlImage, setUrlImage] = React.useState('');
 
   React.useEffect(() => {
@@ -27,7 +27,8 @@ export default function ImagePokemon({ data }) {
       <Button
         variant='contained'
         color='error'
-        size='small'>
+        size='small'
+        onClick={() => deleteFavorito(data.id)}>
         Eliminar
       </Button>
     </Box>
