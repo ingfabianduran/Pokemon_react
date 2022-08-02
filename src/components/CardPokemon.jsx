@@ -9,13 +9,45 @@ import { Card,
          List,
          ListItem,
          ListItemText,
-         Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
+         Stack,
+         Snackbar,
+         Alert } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { addFavoritosByUser } from '../services/pocketBase';
+import { useSelector } from 'react-redux';
 
-export default function CardPokemon({ dataPokemon }) {  
+export default function CardPokemon({ dataPokemon }) {
+  const [snackBar, setSnackBar] = React.useState({ show: false, type: 'success', text: '' });
+  const user = useSelector(state => state.user);
+  const navigate = useNavigate();
+
+  const addFavorito = async() => {
+    const record = {
+      user: user,
+      pokemon: dataPokemon.id
+    };
+    try {
+      const newRecord = await addFavoritosByUser(record);
+      setSnackBar({ show: true, type: 'success', text: `Favorito ${newRecord.id} agregado correctamente` });
+      setTimeout(() => {
+        setSnackBar({ ...snackBar, show: false });
+        navigate('/pokemones');
+      }, 3000);
+    } catch (error) {
+      setSnackBar({ show: true, type: 'error', text: 'Algo raro paso aquí' });
+    }
+  };
+  
   return (
     <Card
       raised>
+      <Snackbar
+        open={snackBar.show}>
+        <Alert
+          severity={snackBar.type}>
+          { snackBar.text }
+        </Alert>
+      </Snackbar>
       <CardHeader
         avatar={
           <Avatar 
@@ -72,7 +104,8 @@ export default function CardPokemon({ dataPokemon }) {
             <Button
               size='large'
               variant='contained'
-              color='success'>
+              color='success'
+              onClick={addFavorito}>
               Favorito
             </Button>
           </Stack>
