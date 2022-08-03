@@ -12,7 +12,8 @@ export default function Home() {
   const [listaPokemon, setListaPokemon] = React.useState([]);
   const [listaFavoritos, setListaFavoritos] = React.useState([]);
   const [snackBar, setSnackBar] = React.useState({ show: false, type: 'success', text: '' });
-  const user = useSelector(state => state.user);
+  const { user } = useSelector(state => state.user);
+ 
 
   React.useEffect(() => {
     if (tipoSelect !== '') getListPokemon();
@@ -23,7 +24,7 @@ export default function Home() {
   }, []);
 
   const getFavoritos = async() => {
-    const { items } = await getFavoritosByUser(user);
+    const { items } = await getFavoritosByUser(user.id);
     setListaFavoritos(items);
   };
 

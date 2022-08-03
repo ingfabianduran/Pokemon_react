@@ -2,6 +2,11 @@ import PocketBase from 'pocketbase';
 
 const cliente = new PocketBase('http://127.0.0.1:8090');
 
+const logInUser = async(credenciales) => {
+  const authUser = cliente.Users.authViaEmail(credenciales.email, credenciales.password);
+  return authUser;
+};
+
 const getFavoritosByUser = async(userId) => {
   const res = await cliente.Records.getList('favoritos', 1, 6, {
     filter: `user='${userId}'`
@@ -25,4 +30,4 @@ const deleteFavoritosByUser = async(recordId) => {
   return res;
 };
 
-export { getFavoritosByUser, addFavoritosByUser, deleteFavoritosByUser };
+export { logInUser, getFavoritosByUser, addFavoritosByUser, deleteFavoritosByUser };

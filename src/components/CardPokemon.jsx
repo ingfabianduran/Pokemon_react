@@ -18,12 +18,12 @@ import { useSelector } from 'react-redux';
 
 export default function CardPokemon({ dataPokemon }) {
   const [snackBar, setSnackBar] = React.useState({ show: false, type: 'success', text: '' });
-  const user = useSelector(state => state.user);
+  const { user } = useSelector(state => state.user);
   const navigate = useNavigate();
 
   const addFavorito = async() => {
     const record = {
-      user: user,
+      user: user.id,
       pokemon: dataPokemon.id
     };
     try {
