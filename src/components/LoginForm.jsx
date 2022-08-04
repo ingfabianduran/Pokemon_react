@@ -9,12 +9,12 @@ import { Box,
          Snackbar,
          Alert } from '@mui/material';
 import { logInUser } from '../services/pocketBase';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUser } from '../reducers/user';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../reducers/user';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
-  const user = useSelector(state => state.user);
+  const [user, setUser] = React.useState({ email: '', password: '' });
   const dispatch = useDispatch();
   const [snackBar, setSnackBar] = React.useState({ show: false, type: 'success', text: '' });
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function LoginForm() {
       event.preventDefault();
       const isAuth = await logInUser(user);
       setSnackBar({ ...snackBar, show: true, text: 'Bienvenido al mundo Pokemon' });
-      dispatch(setUser(isAuth.user));
+      dispatch(logIn(isAuth.user));
       setTimeout(() => {
         navigate('/pokemones');
       }, 3000);
@@ -60,7 +60,8 @@ export default function LoginForm() {
             label='Usuario'
             variant='filled'
             margin='normal'
-            value={user.email} />
+            value={user.email}
+            onChange={ (event) => setUser({ ...user, email: event.target.value }) } />
           <TextField
             fullWidth
             required
@@ -68,7 +69,8 @@ export default function LoginForm() {
             type='password'
             variant='filled'
             margin='normal'
-            value={user.password} />
+            value={user.password}
+            onChange={ (event) => setUser({ ...user, password: event.target.value }) } />
         </CardContent>
         <CardActions>
           <Button
