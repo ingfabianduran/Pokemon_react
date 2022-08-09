@@ -50,7 +50,7 @@ export default function Home() {
   };
 
   const closeSession = () => {
-    dispatch(logOut({ email: '', password: '' }));
+    dispatch(logOut(null));
     setSnackBar({ show: true, type: 'success', text: 'Nos vemos pronto!!!' });
     setTimeout(() => {
       navigate('/');
